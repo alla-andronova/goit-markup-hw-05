@@ -12,7 +12,7 @@
   --footer-text-accent: rgba(255, 255, 255, 0.6);
   --primary-icon-fill: #afb1b8;
   --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  --timing-duration: 1250ms;
+  --timing-duration: 3250ms;
 }
 
 body {
@@ -112,11 +112,14 @@ img {
 .icon-team,
 .icon-services,
 .clients-list-link,
-.footer-social-link {
+.footer-social-link,
+.portfolio-btn,
+.portfolio-link-card {
   transition: color var(--timing-duration) var(--timing-function),
     fill var(--timing-duration) var(--timing-function),
     background-color var(--timing-duration) var(--timing-function),
-    border-color var(--timing-duration) var(--timing-function);
+    border-color var(--timing-duration) var(--timing-function),
+    box-shadow var(--timing-duration) var(--timing-function);
 }
 
 /* =============== END COMPONENTS ===============*/
@@ -290,24 +293,46 @@ img {
   cursor: pointer;
 }
 
+.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
 .backdrop {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 100;
 
   width: 100%;
   height: 100%;
 
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.6);
 
   transition: opacity var(--timing-duration) var(--timing-function);
+}
+
+.backdrop.is-hidden{
+  transition: all var(--timing-duration) var(--timing-function) 500ms;
+  
+}
+
+.backdrop.is-hidden .modal{
+
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform var(--timing-duration) var(--timing-function) 0ms;
 }
 
 .modal {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  
+  transform: translate(-50%, -50%) scale(1);
+  /* в транзишн сделала задержку для модального окна (вначале появляется backtrop
+  а потом уже окно с задержкой) */
+  transition: transform var(--timing-duration) var(--timing-function) 500ms;
 
   min-height: 581px;
   min-width: 528px;
@@ -317,6 +342,7 @@ img {
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px rgba(0, 0, 0, 0.2);
 }
+
 
 .modal-button {
   position: absolute;
@@ -333,11 +359,8 @@ img {
   cursor: pointer;
 }
 
-.backdrop.is-hidden {
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
-}
+
+
 
 /* =============== END HERO ===============*/
 
